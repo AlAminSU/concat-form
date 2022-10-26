@@ -11,9 +11,21 @@ const strongPasswordElm = document.querySelector(".strongPassword");
 const copyTextElm = document.querySelector(".copyText");
 const showPasswordElm = document.querySelector(".showPassword");
 const strongPassordMsg = document.querySelector(".strongpasswordmsg");
+const geneartePasswordElm = document.querySelector(".generategPassword");
+const geneartePasswordMsg = document.querySelector(".generatePasswordmsg");
+const genPassword = document.querySelector(".Gen-password");
 const validUrlElm = document.querySelector(".validUrl");
 const validUrlMsg = document.querySelector(".validurlmsg");
 const submitBtnElm = document.querySelector(".submitBtn button");
+const generatPassParent = document.querySelector(".passwordGenerator");
+const passwordGenerateField = document.querySelector("#generated");
+// console.log(passwordGenerateField);
+const passGenMsg = document.querySelector("#generateMsg");
+const passwordField = document.querySelector("#password");
+const passwordMsg = document.querySelector("#passwordMsg");
+const confirmPassField = document.querySelector("#confirm");
+const conPassMsg = document.querySelector("#confirmMsg");
+const conedPassMsg = document.querySelector("#confirmedMsg");
 
 // getting regular expression
 let fullNameRegx = /^[a-zA-Z\s]+$/gi;
@@ -113,8 +125,54 @@ function handleFormSubmit(evt) {
     inputPassword,
     inputUrl
   );
-
+  // reset values
   reserInput();
 }
+
+// functions for generating and copying password
+function createPassword(len = 12) {
+  const chars =
+    "abcdefghijklmnopqrstuvwxyz123456789001234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ!§$%&/?#+-_@(){}[]:;<>*";
+  const arr = new Uint32Array(len);
+  const maxRange = Math.pow(2, 32);
+  let passwd = "";
+  window.crypto.getRandomValues(arr);
+
+  for (let i = 0; i < len; i++) {
+    let c = Math.floor((arr[i] / maxRange) * chars.length + 1);
+    passwd += chars.charAt(c);
+  }
+  return passwd;
+}
+function generatePassword() {
+  passwordGenerateField.value = createPassword();
+  //showMessage("Pasword generated", "green", passGenMsg);
+}
+function copyPassword() {
+  if (passwordGenerateField.value) {
+    console.log("copiedd");
+    passwordGenerateField.select();
+    passwordGenerateField.setSelectionRange(0, 99);
+    document.execCommand("copy");
+    //showMessage("Pasword copied", "green", passGenMsg);
+    passwordGenerateField.value = "";
+  } else {
+    //showMessage("Nothing found to copy", "red", passGenMsg);
+    console.log("copied");
+  }
+}
+
+function generateAndCopyPassword(evt) {
+  if (evt.target.classList.contains("generate")) {
+    console.log("generate");
+    generatePassword();
+  }
+  if (evt.target.classList.contains("copy")) {
+    console.log("generate");
+    copyPassword();
+  }
+}
+
+generatPassParent.addEventListener("click", generateAndCopyPassword);
 
 form.addEventListener("submit", handleFormSubmit);

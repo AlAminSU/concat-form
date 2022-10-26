@@ -66,11 +66,45 @@
                 style="font-size: 12px; color: red"
               ></span>
             </div>
+            <!-- generate password -->
+            <div class="row mt-4 passwordGenerator">
+              <div class="col-4">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="generated"
+                  id="generated"
+                  placeholder="Click on Generate"
+                />
+              </div>
+              <div class="col-4">
+                <button
+                  type="button"
+                  class="btn btn-info form-control genpass generate"
+                  id="genPass"
+                >
+                  Generate
+                </button>
+                <small id="confirmMsg"></small>
+              </div>
+              <div class="col-3">
+                <button
+                  type="button"
+                  class="btn btn-info genpass copy"
+                  id="copy"
+                >
+                  Copy
+                </button>
+                <small id="confirmedMsg"></small>
+              </div>
+              <small id="generateMsg">Generate Strong Password</small>
+            </div>
+            <!-- end generate password -->
             <div class="password">
               <label for="strongPassword">Password:</label>
               <input
                 type="password"
-                class="form-control textInpu strongPassword"
+                class="form-control textInput strongPassword"
                 placeholder="Type your password here..."
               />
               <!-- <span class="copyText">Copy</span>
